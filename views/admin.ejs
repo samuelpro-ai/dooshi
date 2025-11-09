@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin — DOOSHI</title>
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        :root {
+            --gold: #ffd700;
+            --dark: #0a0a0a;
+            --darker: #111;
+            --light: #f8f9fa;
+            --gray: #888;
+            --border: #333;
+            --success: #28a745;
+            --danger: #dc3545;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: #0f0f0f;
+            color: #eee;
+            line-height: 1.6;
+            min-height: 100vh;
+            touch-action: manipulation;
+        }
+
+        /* === HEADER === */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 16px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(10, 10, 10, 0.98);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            border-bottom: 1px solid #222;
+            transition: all 0.3s ease;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.5rem, 5vw, 1.8rem);
+            font-weight: 700;
+            color: var(--gold);
+            text-decoration: none;
+            letter-spacing: 0.5px;
+        }
+
+        .back-btn {
+            color: #ccc;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 500;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        .back-btn:active {
+            transform: scale(0.95);
+            background: rgba(255, 215, 0, 0.15);
+            color: var(--gold);
+        }
+
+        /* === MAIN CONTAINER === */
+        .container {
+            max-width: 1100px;
+            margin: 110px auto 40px;
+            padding: 24px;
+            background: #111;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid #222;
+            transition: all 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 90px 12px 20px;
+                padding: 20px;
+                border-radius: 12px;
+            }
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 6vw, 2.5rem);
+            text-align: center;
+            margin-bottom: 8px;
+            color: var(--gold);
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #aaa;
+            font-size: 0.95rem;
+            margin-bottom: 32px;
+        }
+
+        /* === SUCCESS MESSAGE === */
+        .success-msg {
+            background: rgba(40, 167, 69, 0.25);
+            color: var(--success);
+            padding: 14px 16px;
+            border-radius: 12px;
+            text-align: center;
+            margin-bottom: 24px;
+            border: 1px solid rgba(40, 167, 69, 0.4);
+            font-weight: 500;
+            font-size: 1rem;
+            animation: fadeIn 0.4s ease-out;
+            box-shadow: 0 4px 12px rgba(40, 167, 69, 0.15);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* === UPLOAD FORM === */
+        .upload-form {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1.5fr auto;
+            gap: 14px;
+            margin-bottom: 40px;
+            padding: 22px;
+            background: #1a1a1a;
+            border-radius: 14px;
+            border: 1px dashed #444;
+            transition: all 0.3s ease;
+        }
+
+        .upload-form:hover {
+            border-color: var(--gold);
+            background: #1f1f1f;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 992px) {
+            .upload-form {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+
+            .upload-btn {
+                width: 100%;
+            }
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            margin-bottom: 6px;
+            font-weight: 500;
+            color: #ccc;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="file"] {
+            padding: 12px 14px;
+            border: 1px solid #444;
+            border-radius: 10px;
+            background: #222;
+            color: #fff;
+            width:100%;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2);
+            transform: scale(1.01);
+        }
+
+        .upload-btn {
+            padding: 12px 24px;
+            background: var(--gold);
+            color: var(--dark);
+            font-weight: 600;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+            align-self: end;
+            user-select: none;
+            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.3);
+        }
+
+        .upload-btn:active {
+            transform: scale(0.96);
+            box-shadow: 0 2px 6px rgba(255, 215, 0, 0.2);
+        }
+
+        /* === ITEMS GRID === */
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .items-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+        }
+
+        .item-card {
+            background: #1a1a1a;
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            transition: all 0.3s ease;
+            border: 1px solid #333;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .item-card:active {
+            transform: scale(0.98);
+        }
+
+        .item-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 16px 32px rgba(255, 215, 0, 0.18);
+            border-color: var(--gold);
+        }
+
+        .item-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .item-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .item-info {
+            padding: 16px;
+            background: #1f1f1f;
+        }
+
+        .item-info h3 {
+            font-size: 1.2rem;
+            margin-bottom: 6px;
+            color: #fff;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .item-info .price {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--gold);
+        }
+
+        .delete-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--danger);
+            color: white;
+            border: none;
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 3px 10px rgba(220, 53, 69, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            user-select: none;
+        }
+
+        .delete-btn:active {
+            transform: scale(0.9);
+            box-shadow: 0 1px 4px rgba(220, 53, 69, 0.3);
+        }
+
+        .delete-btn:hover {
+            background: #c82333;
+            transform: scale(1.1);
+        }
+
+        /* === EMPTY STATE === */
+        .empty-state {
+            text-align: center;
+            padding: 70px 20px;
+            color: #777;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .empty-state i {
+            font-size: 3.8rem;
+            color: #444;
+            margin-bottom: 18px;
+            display: block;
+        }
+
+        .empty-state p {
+            font-size: 1.2rem;
+            margin-bottom: 14px;
+        }
+
+        .empty-state a {
+            color: var(--gold);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: 0.2s;
+        }
+
+        .empty-state a:active {
+            transform: scale(0.95);
+            background: rgba(255, 215, 0, 0.15);
+        }
+
+        /* === MOBILE OPTIMIZATIONS === */
+        @media (max-width: 480px) {
+            header {
+                padding: 14px 4%;
+            }
+
+            .container {
+                margin: 80px 8px 16px;
+                padding: 16px;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .upload-form {
+                padding: 18px;
+            }
+
+            .item-card img {
+                height: 180px;
+            }
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <a href="/" class="logo">DOOSHI</a>
+        <a href="/" class="back-btn">View Store</a>
+    </header>
+
+    <!-- MAIN -->
+    <div class="container">
+        <h1>Admin Dashboard</h1>
+        <p class="subtitle">Manage your luxury collection</p>
+
+     
+
+                <!-- UPLOAD FORM -->
+                <form action="/admin" method="POST" enctype="multipart/form-data" class="upload-form">
+                    <div class="form-group">
+                        <label for="title">Item Title</label>
+                        <input type="text" name="title" id="title" placeholder="e.g., Silk Evening Gown" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Price (₦)</label>
+                        <input type="number" name="price" id="price" step="0.01" placeholder="99.99" required />
+                    </div>
+                    <div class="form-group">
+                        <label for="image">Image</label>
+                        <input type="file" name="image" id="image" accept="image/*" required />
+                    </div>
+                    <button type="submit" class="upload-btn">Upload Item</button>
+                </form>
+
+                <!-- ITEMS GRID -->
+                <% if (clothes.length===0) { %>
+                    <div class="empty-state">
+                        <i class="fas fa-box-open"></i>
+                        <p>No items in your collection yet.</p>
+                        <p>Upload your first piece to get started!</p>
+                    </div>
+                    <% } else { %>
+                        <div class="items-grid">
+                            <% clothes.forEach(item=> { %>
+                                <div class="item-card">
+                                    <img src="<%= item.imageUrl %>" alt="<%= item.title %>">
+                                    <div class="item-info">
+                                        <h3>
+                                            <%= item.title %>
+                                        </h3>
+                                        <p class="price">₦<%= item.price.toFixed(2) %>
+                                        </p>
+                                    </div>
+                                    <a href="/delete/<%= item._id %>"
+                                        onclick="return confirm('Permanently delete this item?')"
+                                        style="display: block; position: absolute; inset: 0; z-index: 5;"></a>
+                                    <button type="button" class="upload-btn" title="Delete">
+                                    delete
+                                    </button>
+                                </div>
+                                <% }) %>
+                        </div>
+                        <% } %>
+    </div>
+
+</body>
+
+</html>
